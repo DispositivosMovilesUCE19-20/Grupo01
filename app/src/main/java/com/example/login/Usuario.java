@@ -2,41 +2,23 @@ package com.example.login;
 
 public class Usuario {
     int id;
-    String Nombre,Apellido,Usuario,Password,Mail,Celular;
+    String Nombre,Apellido,Usuario,Password,Mail,Celular, genero;
+    long fechaNacimiento;
 
-    public Usuario() {
-    }
-
-    public Usuario(String nombre, String apellido, String usuario, String password, String mail, String celular) {
+    public Usuario(int id, String nombre, String apellido, String usuario, String password, String mail, String celular, String genero, long fechaNacimiento) {
+        this.id = id;
         Nombre = nombre;
         Apellido = apellido;
         Usuario = usuario;
         Password = password;
         Mail = mail;
         Celular = celular;
-    }
-    public boolean isNull(){
-
-        if (Nombre.equals("")&&Apellido.equals("")&&Usuario.equals("")&&Password.equals("")&&Mail.equals("")&&Celular.equals("")){
-
-            return false;
-        }else{
-            return true;
-        }
-
+        this.genero = genero;
+        this.fechaNacimiento = fechaNacimiento;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", Nombre='" + Nombre + '\'' +
-                ", Apellido='" + Apellido + '\'' +
-                ", Usuario='" + Usuario + '\'' +
-                ", Password='" + Password + '\'' +
-                ", Mail='" + Mail + '\'' +
-                ", Celular='" + Celular + '\'' +
-                '}';
+    public Usuario() {
+
     }
 
     public int getId() {
@@ -94,6 +76,48 @@ public class Usuario {
     public void setCelular(String celular) {
         Celular = celular;
     }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public long getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(long fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public boolean isNull(){
+
+        if (Nombre.equals("")&&Apellido.equals("")&&Usuario.equals("")&&Password.equals("")&&Mail.equals("")&&Celular.equals("")){
+
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", Nombre='" + Nombre + '\'' +
+                ", Apellido='" + Apellido + '\'' +
+                ", Usuario='" + Usuario + '\'' +
+                ", Password='" + Password + '\'' +
+                ", Mail='" + Mail + '\'' +
+                ", Celular='" + Celular + '\'' +
+                '}';
+    }
+
+
 
 
 
