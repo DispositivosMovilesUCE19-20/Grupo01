@@ -27,4 +27,15 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    //Agregados
+    implementation 'de.hdodenhof:circleimageview:2.2.0' //Imagen Circular
+    implementation 'com.github.bumptech.glide:glide:4.8.0' //Recortar Imagen Descargar Imagen
+    implementation 'com.kbeanie:multipicker:1.5'
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+
+
 }

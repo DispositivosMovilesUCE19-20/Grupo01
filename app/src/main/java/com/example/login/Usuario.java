@@ -1,88 +1,73 @@
 package com.example.login;
 
+
 public class Usuario {
-    int id;
-    String Nombre,Apellido,Usuario,Password,Mail,Celular, genero;
-    long fechaNacimiento;
 
-    public Usuario(int id, String nombre, String apellido, String usuario, String password, String mail, String celular, String genero, long fechaNacimiento) {
-        this.id = id;
-        Nombre = nombre;
-        Apellido = apellido;
-        Usuario = usuario;
-        Password = password;
-        Mail = mail;
-        Celular = celular;
-        this.genero = genero;
-        this.fechaNacimiento = fechaNacimiento;
+    private String fotoPerfilURL;
+    private String nombre;
+    private String apellido;
+    private String usuario;
+    private String contrasena;
+    private String correo;
+    private String celular;
+    private long fechaNacimiento;
+    private String genero;
+    private boolean becado;
+
+    public String getFotoPerfilURL() {
+        return fotoPerfilURL;
     }
 
-    public Usuario() {
-
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setFotoPerfilURL(String fotoPerfilURL) {
+        this.fotoPerfilURL = fotoPerfilURL;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
     }
 
     public String getApellido() {
-        return Apellido;
+        return apellido;
     }
 
     public void setApellido(String apellido) {
-        Apellido = apellido;
+        this.apellido = apellido;
     }
 
     public String getUsuario() {
-        return Usuario;
+        return usuario;
     }
 
     public void setUsuario(String usuario) {
-        Usuario = usuario;
+        this.usuario = usuario;
     }
 
-    public String getPassword() {
-        return Password;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setPassword(String password) {
-        Password = password;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
-    public String getMail() {
-        return Mail;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setMail(String mail) {
-        Mail = mail;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getCelular() {
-        return Celular;
+        return celular;
     }
 
     public void setCelular(String celular) {
-        Celular = celular;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
+        this.celular = celular;
     }
 
     public long getFechaNacimiento() {
@@ -93,9 +78,42 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public boolean isBecado() {
+        return becado;
+    }
+
+    public void setBecado(boolean becado) {
+        this.becado = becado;
+    }
+
+    public Usuario(String fotoPerfilURL, String nombre, String apellido, String usuario, String contrasena, String correo, String celular, long fechaNacimiento, String genero, boolean becado) {
+        this.fotoPerfilURL = fotoPerfilURL;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.usuario = usuario;
+        this.contrasena = contrasena;
+        this.correo = correo;
+        this.celular = celular;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.becado = becado;
+    }
+
+    public Usuario(){
+
+    }
+
     public boolean isNull(){
 
-        if (Nombre.equals("")&&Apellido.equals("")&&Usuario.equals("")&&Password.equals("")&&Mail.equals("")&&Celular.equals("")){
+        if (nombre.equals("")&&apellido.equals("")&&usuario.equals("")&&contrasena.equals("")&&correo.equals("")&&celular.equals("")){
 
             return false;
         }else{
@@ -107,21 +125,16 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "id=" + id +
-                ", Nombre='" + Nombre + '\'' +
-                ", Apellido='" + Apellido + '\'' +
-                ", Usuario='" + Usuario + '\'' +
-                ", Password='" + Password + '\'' +
-                ", Mail='" + Mail + '\'' +
-                ", Celular='" + Celular + '\'' +
+                "fotoPerfilURL='" + fotoPerfilURL + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                ", correo='" + correo + '\'' +
+                ", celular='" + celular + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", genero='" + genero + '\'' +
+                ", becado=" + becado +
                 '}';
     }
-
-
-
-
-
-
-
-
 }
