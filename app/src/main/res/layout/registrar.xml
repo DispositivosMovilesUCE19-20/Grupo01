@@ -60,13 +60,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/txtAsignaturas"
+                <TextView
+                    android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Asignaturas:" />
+                    android:text="Asignaturas:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <CheckBox
                     android:id="@+id/idCalculo"
@@ -97,6 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Geografia" />
+
             </RadioGroup>
 
             <EditText
@@ -128,7 +130,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Mujer" />
+
             </RadioGroup>
+
+            <Switch
+                android:id="@+id/swBecado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Becado" />
 
             <Button
                 android:id="@+id/btnRegistrar2"

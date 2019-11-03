@@ -1,51 +1,80 @@
 package com.example.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class Registrar extends AppCompatActivity implements View.OnClickListener {
-EditText us,pass,nom,ap,cel,mail, fechaNacimiento;
-Button reg,can, btSalir;
-RadioGroup rgGenero;
-daoUsuario dao;
-private RadioButton rdHombre;
-private RadioButton rdMujer;
 
-private long fechaDeNacimiento;
+
+/**
+ * Created by Freddy
+ */
+
+public class Registrar extends AppCompatActivity implements View.OnClickListener {
+
+    //private CircleImageView fotoPerfil;
+    private EditText txtUsuario;
+    private EditText txtContrasena;
+    private EditText txtNombre;
+    private EditText txtApellido;
+    private EditText txtCorreo;
+    private EditText txtCelular;
+    private EditText txtFechaDeNacimiento;
+    private RadioButton rdHombre;
+    private RadioButton rdMujer;
+    private Button btnRegistrar;
+    private Button btnCancelar;
+    private Switch blBecado;
+
+    //private ImagePicker imagePicker;
+    //private CameraImagePicker cameraPicker;
+
+    private String pickerPath;
+    private Uri fotoPerfilUri;
+    private long fechaDeNacimiento;
+
+    private daoUsuario daoUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registrar);
+        //fotoPerfil = findViewById(R.id.fotoPerfil);
+        txtUsuario = findViewById(R.id.RegUsuario);
+        txtContrasena = findViewById(R.id.RegPass);
+        txtNombre = findViewById(R.id.RegNombre);
+        txtApellido = findViewById(R.id.RegApellido);
+        txtCorreo = findViewById(R.id.RegMail);
+        txtCelular = findViewById(R.id.RegCelular);
+        txtFechaDeNacimiento = findViewById(R.id.txtFechaDeNacimiento);
+        rdHombre = findViewById(R.id.rdHombre);
+        rdMujer = findViewById(R.id.rdMujer);
+        blBecado = findViewById(R.id.swBecado);
+        btnRegistrar = findViewById(R.id.btnRegistrar2);
+        btnCancelar = findViewById(R.id.btnCancelar);
 
-        us = findViewById(R.id.RegUsuario);
-        pass = findViewById(R.id.RegPass);
-        nom = findViewById(R.id.RegNombre);
-        ap = findViewById(R.id.RegApellido);
-        cel = findViewById(R.id.RegCelular);
-        mail = findViewById(R.id.RegMail);
-        fechaNacimiento = findViewById(R.id.txtFechaDeNacimiento);
-        rgGenero = findViewById(R.id.rgGenero);
 
-        reg = findViewById(R.id.btnRegistrar2);
-        can = findViewById(R.id.btnCancelar);
+        btnRegistrar.setOnClickListener(this);
+        btnCancelar.setOnClickListener(this);
+        daoUser = new daoUsuario(this);
 
-        fechaNacimiento.setOnClickListener(new View.OnClickListener() {
+        txtFechaDeNacimiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Calendar calendar = Calendar.getInstance();
@@ -60,17 +89,13 @@ private long fechaDeNacimiento;
                         Date date = calendarResultado.getTime();
                         String fechaDeNacimientoTexto = simpleDateFormat.format(date);
                         fechaDeNacimiento = date.getTime();
-                        fechaNacimiento.setText(fechaDeNacimientoTexto);
+                        txtFechaDeNacimiento.setText(fechaDeNacimientoTexto);
                     }
-                },calendar.get(Calendar.YEAR)-23,calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+                },calendar.get(Calendar.YEAR)-18,calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
 
-
-        reg.setOnClickListener(this);
-        can.setOnClickListener(this);
-        dao=new daoUsuario(this);
     }
 
     @Override
@@ -78,12 +103,13 @@ private long fechaDeNacimiento;
         switch (v.getId()){
             case R.id.btnRegistrar2:
                 Usuario u = new Usuario();
-                u.setUsuario(us.getText().toString());
-                u.setPassword(pass.getText().toString());
-                u.setNombre(nom.getText().toString());
-                u.setApellido(ap.getText().toString());
-                u.setCelular(cel.getText().toString());
-                u.setMail(cel.getText().toString());
+                u.setUsuario(txtUsuario.getText().toString());
+                u.setPassword(txtContrasena.getText().toString());
+                u.setNombre(txtNombre.getText().toString());
+                u.setApellido(txtApellido.getText().toString());
+                u.setCelular(txtCelular.getText().toString());
+                u.setMail(txtCorreo.getText().toString());
+                u.setFechaNacimiento(fechaDeNacimiento);
 
                 final String genero;
 
@@ -94,12 +120,12 @@ private long fechaDeNacimiento;
                 }
 
                 u.setGenero(genero);
-                u.setFechaNacimiento(fechaDeNacimiento);
+
 
                 if(!u.isNull()){
                     Toast.makeText(this,"Error:campos vacios",Toast.LENGTH_LONG).show();
 
-                }else if(dao.insertarUsuario(u)){
+                }else if(daoUser.insertarUsuario(u)){
                     Toast.makeText(this,"Registro Exitoso !!",Toast.LENGTH_LONG).show();
                     Intent i2=new Intent(Registrar.this,MainActivity.class);
                     startActivity(i2);
@@ -109,7 +135,6 @@ private long fechaDeNacimiento;
                     Toast.makeText(this,"Usuario Ya Registrado!!!",Toast.LENGTH_LONG).show();
                 }
                 break;
-
             case R.id.btnCancelar:
                 Intent i=new Intent(Registrar.this,MainActivity.class);
                 startActivity(i);
