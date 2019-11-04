@@ -75,7 +75,7 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Asignaturas:"
+                    android:text="Asignaturas (Min 3):"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                     android:textSize="18sp"
                     android:textStyle="bold" />
