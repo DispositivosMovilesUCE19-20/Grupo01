@@ -27,11 +27,11 @@ public boolean insertarUsuario(Usuario u){
     if(buscar(u.getUsuario())==0){
         ContentValues cv=new ContentValues();
         cv.put("usuario",u.getUsuario());
-        cv.put("pass",u.getPassword());
+        cv.put("pass",u.getContrasena());
         cv.put("nombre",u.getNombre());
         cv.put("ap",u.getApellido());
         cv.put("cel",u.getCelular());
-        cv.put("mail",u.getMail());
+        cv.put("mail",u.getCorreo());
 
         return (sql.insert("usuario",null,cv)>0);
 
@@ -62,11 +62,11 @@ public ArrayList<Usuario> selectUsuarios(){
             Usuario u=new Usuario();
             u.setId(cr.getInt(0));
             u.setUsuario(cr.getString(1));
-            u.setPassword(cr.getString(2));
+            u.setContrasena(cr.getString(2));
             u.setNombre(cr.getString(3));
             u.setApellido(cr.getString(4));
             u.setCelular(cr.getString(5));
-            u.setMail(cr.getString(6));
+            u.setCorreo(cr.getString(6));
 
             lista.add(u);
         }while (cr.moveToNext());
@@ -92,7 +92,7 @@ public int login(String u , String p){
 public Usuario getUsuario(String u , String p){
     lista=selectUsuarios();
     for(Usuario us:lista){
-        if(us.getUsuario().equals(u)&&us.getPassword().equals(p)){
+        if(us.getUsuario().equals(u)&&us.getContrasena().equals(p)){
             return us;
         }
 

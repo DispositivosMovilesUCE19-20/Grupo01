@@ -3,6 +3,7 @@ package com.example.login;
 
 public class Usuario {
 
+    private int id;
     private String fotoPerfilURL;
     private String nombre;
     private String apellido;
@@ -13,6 +14,30 @@ public class Usuario {
     private long fechaNacimiento;
     private String genero;
     private boolean becado;
+
+
+    public Usuario(){
+
+    }
+
+    public boolean isNull(){
+
+        if (nombre.equals("")&&apellido.equals("")&&usuario.equals("")&&contrasena.equals("")&&correo.equals("")&&celular.equals("")){
+
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFotoPerfilURL() {
         return fotoPerfilURL;
@@ -94,7 +119,8 @@ public class Usuario {
         this.becado = becado;
     }
 
-    public Usuario(String fotoPerfilURL, String nombre, String apellido, String usuario, String contrasena, String correo, String celular, long fechaNacimiento, String genero, boolean becado) {
+    public Usuario(int id, String fotoPerfilURL, String nombre, String apellido, String usuario, String contrasena, String correo, String celular, long fechaNacimiento, String genero, boolean becado) {
+        this.id = id;
         this.fotoPerfilURL = fotoPerfilURL;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -107,25 +133,11 @@ public class Usuario {
         this.becado = becado;
     }
 
-    public Usuario(){
-
-    }
-
-    public boolean isNull(){
-
-        if (nombre.equals("")&&apellido.equals("")&&usuario.equals("")&&contrasena.equals("")&&correo.equals("")&&celular.equals("")){
-
-            return false;
-        }else{
-            return true;
-        }
-
-    }
-
     @Override
     public String toString() {
         return "Usuario{" +
-                "fotoPerfilURL='" + fotoPerfilURL + '\'' +
+                "id=" + id +
+                ", fotoPerfilURL='" + fotoPerfilURL + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", usuario='" + usuario + '\'' +
