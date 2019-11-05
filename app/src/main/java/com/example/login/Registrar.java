@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,6 +62,10 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
     private Uri fotoPerfilUri;
     private long fechaDeNacimiento;
 
+    private String fechaDeNacimientoTexto;
+
+    private Switch switchB;
+
     daoUsuario dao;
 
     @Override
@@ -80,6 +85,7 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
         btnRegistrar = findViewById(R.id.btnRegistrar2);
         btnCancelar = findViewById(R.id.btnCancelar);
 
+        switchB = findViewById(R.id.swBecado);
 
         btnRegistrar.setOnClickListener(this);
         btnCancelar.setOnClickListener(this);
@@ -161,7 +167,7 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                         calendarResultado.set(Calendar.DAY_OF_MONTH,dia);
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                         Date date = calendarResultado.getTime();
-                        String fechaDeNacimientoTexto = simpleDateFormat.format(date);
+                        fechaDeNacimientoTexto = simpleDateFormat.format(date);
                         fechaDeNacimiento = date.getTime();
                         txtFechaDeNacimiento.setText(fechaDeNacimientoTexto);
                     }
@@ -208,6 +214,27 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnRegistrar2:
+
+                final String genero;
+
+                if(rdHombre.isChecked()){
+                    genero = "Hombre";
+                }else{
+                    genero = "Mujer";
+                }
+
+                final String beca;
+
+
+                if(switchB.isChecked())
+                {
+
+                    beca = "Becado";
+
+                }else{
+                    beca = "No es Becado";
+                }
+
                 Usuario u = new Usuario();
                 u.setUsuario(txtUsuario.getText().toString());
                 u.setContrasena(txtContrasena.getText().toString());
@@ -215,6 +242,25 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                 u.setApellido(txtApellido.getText().toString());
                 u.setCelular(txtCelular.getText().toString());
                 u.setCorreo(txtCorreo.getText().toString());
+                u.setFechaNacimiento(fechaDeNacimientoTexto);
+                u.setGenero(genero);
+                u.setBecado(beca);
+
+
+
+                if(fotoPerfilUri!=null) {
+
+                    u.setFotoPerfilURL("Usuario \n" + "");
+
+                }else{
+
+                    u.setFotoPerfilURL("https://firebasestorage.googleapis.com/v0/b/fir-chat-1ab2c.appspot.com/o/foto_perfil%2Ffoto_por_defecto.png?alt=media&token=40eed45f-bd7f-4178-8e7c-092d7eb1fb64");
+
+                }
+
+
+
+
                 if(!u.isNull()){
                     Toast.makeText(this,"Error:campos vacios",Toast.LENGTH_LONG).show();
 

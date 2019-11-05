@@ -37,13 +37,16 @@ daoUsuario dao;
                 if(u.equals("")&&p.equals("")){
                     Toast.makeText(this,"Error : Campos Vacios",Toast.LENGTH_LONG).show();
                 }else if(dao.login(u,p)==1){
-                    Usuario ux=dao.getUsuario(u,p);
+                    //Usuario ux=dao.getUsuario(u,p);
                     Toast.makeText(this,"Datos Correctos",Toast.LENGTH_LONG).show();
-                    Intent i2=new Intent(MainActivity.this,Inicio.class);
-                    i2.putExtra("id",ux.getId());
+                    //Intent i2=new Intent(MainActivity.this,Inicio.class);
+                    //i2.putExtra("id",ux.getId());
 
-                    startActivity(i2);
-                    finish();
+                    //startActivity(i2);
+                    //finish();
+                    Intent c=new Intent(MainActivity.this,Mostrar.class);
+                    startActivity(c);
+
                 }else{
                     Toast.makeText(this,"Usuario o Contraseña incorrectos",Toast.LENGTH_LONG).show();
 

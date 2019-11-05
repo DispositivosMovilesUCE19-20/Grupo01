@@ -11,9 +11,9 @@ public class Usuario {
     private String contrasena;
     private String correo;
     private String celular;
-    private long fechaNacimiento;
+    private String fechaNacimiento;
     private String genero;
-    private boolean becado;
+    private String becado;
 
 
     public Usuario(){
@@ -22,7 +22,7 @@ public class Usuario {
 
     public boolean isNull(){
 
-        if (nombre.equals("")&&apellido.equals("")&&usuario.equals("")&&contrasena.equals("")&&correo.equals("")&&celular.equals("")){
+        if (nombre.equals("")&&apellido.equals("")&&usuario.equals("")&&contrasena.equals("")&&correo.equals("")&&celular.equals("")&&fechaNacimiento.equals("")&&genero.equals("")&&becado.equals("")){
 
             return false;
         }else{
@@ -95,11 +95,11 @@ public class Usuario {
         this.celular = celular;
     }
 
-    public long getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(long fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -111,15 +111,15 @@ public class Usuario {
         this.genero = genero;
     }
 
-    public boolean isBecado() {
+    public String getBecado() {
         return becado;
     }
 
-    public void setBecado(boolean becado) {
+    public void setBecado(String becado) {
         this.becado = becado;
     }
 
-    public Usuario(int id, String fotoPerfilURL, String nombre, String apellido, String usuario, String contrasena, String correo, String celular, long fechaNacimiento, String genero, boolean becado) {
+    public Usuario(int id, String fotoPerfilURL, String nombre, String apellido, String usuario, String contrasena, String correo, String celular, String fechaNacimiento, String genero, String becado) {
         this.id = id;
         this.fotoPerfilURL = fotoPerfilURL;
         this.nombre = nombre;
@@ -132,6 +132,9 @@ public class Usuario {
         this.genero = genero;
         this.becado = becado;
     }
+
+
+
 
     @Override
     public String toString() {

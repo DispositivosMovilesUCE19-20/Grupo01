@@ -13,7 +13,7 @@ Usuario u;
 ArrayList<Usuario> lista;
 SQLiteDatabase sql;
 String bd="BDUsuarios";
-String tabla="create table if not exists usuario(id integer primary key autoincrement,usuario text , pass text, nombre text, ap text, cel text, mail text)";
+String tabla="create table if not exists usuario (id integer primary key autoincrement, usuario text , pass text, nombre text, ap text, cel text, mail text, nacimiento text, genero text, becado text)";
 
 public daoUsuario(Context c){
     this.c = c;
@@ -32,6 +32,9 @@ public boolean insertarUsuario(Usuario u){
         cv.put("ap",u.getApellido());
         cv.put("cel",u.getCelular());
         cv.put("mail",u.getCorreo());
+        cv.put("nacimiento",u.getFechaNacimiento());
+        cv.put("genero", u.getGenero());
+        cv.put("becado", u.getBecado());
 
         return (sql.insert("usuario",null,cv)>0);
 
@@ -67,6 +70,10 @@ public ArrayList<Usuario> selectUsuarios(){
             u.setApellido(cr.getString(4));
             u.setCelular(cr.getString(5));
             u.setCorreo(cr.getString(6));
+            u.setFechaNacimiento(cr.getString(7));
+            u.setGenero(cr.getString(8));
+            u.setBecado(cr.getString(9));
+
 
             lista.add(u);
         }while (cr.moveToNext());
