@@ -13,12 +13,30 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import android.util.Log;
+
 public class Mostrar extends AppCompatActivity implements View.OnClickListener{
-    ListView lista;
+
     daoUsuario dao, dao2;
     Button btnCerrarSesion , btnSalirApp;
+
     TextView tv1;
+
     ArrayList<String> list, detalle;
+    ListView lista;
+
+    Usuario usuario = new Usuario();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +63,12 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
         detalle=new ArrayList<String>();
         for (Usuario u:l2){
             detalle.add("Usuario: " + u.getUsuario() + "\n" +
-            "Correo: " + u.getCorreo() + "\n" +
-                            "Celular: " + u.getCelular() + "\n" +
+                    "Correo: " + u.getCorreo() + "\n" +
+                    "Celular: " + u.getCelular() + "\n" +
                     "FechaNacimiento: " + u.getFechaNacimiento() + "\n" +
                     "Genero: " + u.getGenero() + "\n" +
-                    "Becado: " + u.getBecado());
+                    "Becado: " + u.getBecado() + "\n");
+                    //u.toJsonString() );
         }
 
 
@@ -82,4 +101,49 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
 
         }
     }
+
+    public void serializeClassGSON(View view) {
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(usuario);
+        IOHelper.writeToFile(this, "cityJsonObj.txt", jsonString);
+    }
+
+    public void unserializeClassGSON(View view) {
+        Gson gson = new Gson();
+        try {
+            FileInputStream is = openFileInput("cityJsonObj.txt");
+            String result = IOHelper.stringFromStream(is);
+            //City city = gson.fromJson(Reader Instance, City.class);
+            Usuario usuario = gson.fromJson(result, Usuario.class);
+            tv1.setText("Usuario : " + usuario.getId() + "\n");
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readJson(View view) {
+        String jsonString = IOHelper.stringFromAsset(this, "cities.json");
+        try {
+            //JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray cities = new JSONArray(jsonString);
+
+            String result = "";
+            for (int i = 0; i < cities.length(); i++) {
+                JSONObject city = cities.getJSONObject(i);
+                //new Gson().fromJson(city.toString(), City.class);
+                result += "Country : " + city.getString("country") + "\n" +
+                        "Name : " + city.getString("name") + "\n" +
+                        "Latitude,Longitud :" + city.getDouble("lat") + ", " + city.getString("lng");
+            }
+            tv1.setText(result);
+        } catch (Exception e) {
+            Log.d("ReadPlacesFeedTask", e.getLocalizedMessage());
+        }
+    }
+
+    public void writeJson(View view) {
+        IOHelper.writeToFile(this, "cityJsonObj.txt", usuario.toJsonString());
+    }
+
 }

@@ -41,10 +41,10 @@
 
         <Button
             android:id="@+id/btDescargar"
-            android:layout_width="224dp"
+            android:layout_width="264dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="90dp"
-            android:text="Descargar Contenido"
+            android:layout_marginLeft="70dp"
+            android:text="Descargar Contenido XML"
             android:textSize="16sp" />
     </LinearLayout>
 

@@ -152,4 +152,17 @@ public class Usuario {
                 ", becado=" + becado +
                 '}';
     }
+
+    public String toJsonString() {
+        return "{ \"id\":  " + id + ",\n" +
+                "    \"Usuario\": \"" + usuario + "\",\n" +
+                "    \"nombre\": \"" + nombre + "\",\n" +
+                "    \"apellido\": \"" + apellido + "\",\n" +
+                "    \"contrasena\": \"" + contrasena + "\",\n" +
+                "    \"correo\": \"" + correo + "\",\n" +
+                "    \"celular\": \"" + celular + "\",\n" +
+                "    \"fechaNacimiento\": \"" + fechaNacimiento + "\",\n" +
+                "    \"genero\": \"" + genero + "\",\n" +
+                "    \"becado\": \"" + becado + "\"}";
+    }
 }
