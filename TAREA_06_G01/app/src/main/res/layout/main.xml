@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/login"
+    android:baselineAligned="false"
+    android:isScrollContainer="true"
+    android:keepScreenOn="false"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <EditText
+        android:id="@+id/User"
+        android:layout_width="366dp"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:hint="Usuario"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/Pass"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:hint="Contraseña"
+        android:inputType="textPassword" />
+
+    <Button
+
+        android:id="@+id/btnEntrar"
+        android:layout_width="360dp"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        android:layout_weight="1"
+        android:text="Entrar" />
+
+    <Button
+        android:id="@+id/btnRegistrar"
+        android:layout_width="360dp"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        android:layout_weight="1"
+        android:text="Registrar" />
+
+
+</LinearLayout>
