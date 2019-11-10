@@ -22,7 +22,7 @@ public class Usuario {
 
     public boolean isNull(){
 
-        if (nombre.equals("")&&apellido.equals("")&&usuario.equals("")&&contrasena.equals("")&&correo.equals("")&&celular.equals("")&&fechaNacimiento.equals("")&&genero.equals("")&&becado.equals("")){
+        if (nombre.equals("")&&apellido.equals("")&&usuario.equals("")&&contrasena.equals("")&&correo.equals("")&&celular.equals("")){
 
             return false;
         }else{
@@ -151,5 +151,18 @@ public class Usuario {
                 ", genero='" + genero + '\'' +
                 ", becado=" + becado +
                 '}';
+    }
+
+    public String toJsonString() {
+        return "{ \"id\":  " + id + ",\n" +
+                "    \"Usuario\": \"" + usuario + "\",\n" +
+                "    \"nombre\": \"" + nombre + "\",\n" +
+                "    \"apellido\": \"" + apellido + "\",\n" +
+                "    \"contrasena\": \"" + contrasena + "\",\n" +
+                "    \"correo\": \"" + correo + "\",\n" +
+                "    \"celular\": \"" + celular + "\",\n" +
+                "    \"fechaNacimiento\": \"" + fechaNacimiento + "\",\n" +
+                "    \"genero\": \"" + genero + "\",\n" +
+                "    \"becado\": \"" + becado + "\"}";
     }
 }
