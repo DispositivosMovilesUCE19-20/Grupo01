@@ -154,7 +154,7 @@ public class Usuario {
     }
 
     public String toJsonString() {
-        return "{ \"id\":  " + id + ",\n" +
+        return " {\"id\":  " + id + ",\n" +
                 "    \"Usuario\": \"" + usuario + "\",\n" +
                 "    \"nombre\": \"" + nombre + "\",\n" +
                 "    \"apellido\": \"" + apellido + "\",\n" +

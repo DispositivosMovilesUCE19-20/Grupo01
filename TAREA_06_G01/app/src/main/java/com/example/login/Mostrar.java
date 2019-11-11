@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,10 +14,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.io.IOException;
 
 import java.io.OutputStreamWriter;
+import java.util.ListIterator;
 
 import android.widget.Toast;
 
@@ -32,10 +36,13 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
 
     ArrayList<String> list, detalle;
     ListView lista;
+    ArrayList<Usuario> l;
+
 
     Usuario usuario = new Usuario();
     Context context=this;
     SharedPreferences.Editor editor;
+
 
 
     @Override
@@ -54,11 +61,14 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
         btDescargar = findViewById(R.id.btDescargar);
 
         dao=new daoUsuario(this);
-        ArrayList<Usuario> l= dao.selectUsuarios();
+        l = dao.selectUsuarios();
+
         list=new ArrayList<String>();
+
         for (Usuario u:l){
             list.add(u.getNombre()+" "+u.getApellido());
         }
+
         ArrayAdapter<String> a=new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,list );
         lista.setAdapter(a);
 
@@ -106,15 +116,6 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
 
         editor.commit();
 
-        btDescargar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent c=new Intent(Mostrar.this,guardarActivity.class);
-                startActivityForResult(c, 0);
-                //startActivity(c);
-            }
-        });
-
 
     }
 
@@ -150,5 +151,65 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
 
         }
 
+    }
+
+    public void guardarJson(View view)
+    {
+        String carpetaSDCard =
+                Environment.getExternalStorageDirectory().getAbsolutePath();
+        File carpetaWifi = new File (carpetaSDCard +
+                File.separator + "Download" + File.separator + "informacionBD.json");
+        try
+        {
+            //creamos las carpetas si no existen
+            File carpetaWifiDir = new File (carpetaSDCard);
+            carpetaWifiDir.mkdirs();
+
+            String texto = "";
+            //texto = "//creamos las carpetas si no existen";
+
+            int sizeL = l.size() -1;
+            int contadorL = 0;
+
+            for (Usuario u:l){
+
+                if(contadorL == 0){
+
+                    texto = texto + "[" + "\n" + u.toJsonString() + "," + "\n";
+
+                }else{
+                    if(contadorL == sizeL){
+                        //contadorL < sizeL && contadorL != 0
+                        texto = texto + u.toJsonString() + "\n" + "]";
+
+                    }
+                    else{
+                        texto = texto + u.toJsonString() + "," + "\n";
+
+                    }
+                }
+
+
+                //texto = texto + u.toJsonString() + "\n";
+
+                contadorL++;
+
+            }
+
+            byte bTexto[] = texto.getBytes();
+            FileOutputStream ficSalida = new FileOutputStream(carpetaWifi);
+            ficSalida.write(bTexto);
+            ficSalida.close();
+            Toast.makeText(getApplicationContext(),
+                    "Datos Usuarios guardados en fichero: " +
+                            carpetaWifi.toString(), Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception ex)
+        {
+            //error, mostrar mensaje
+            Toast.makeText(getApplicationContext(),
+                    "Error: " + ex.getMessage() + " " + carpetaWifi.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }
