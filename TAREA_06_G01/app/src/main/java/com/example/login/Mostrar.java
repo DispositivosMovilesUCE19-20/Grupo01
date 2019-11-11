@@ -14,24 +14,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
-import android.util.Log;
+import java.io.OutputStreamWriter;
+
 import android.widget.Toast;
+
 
 public class Mostrar extends AppCompatActivity implements View.OnClickListener{
 
     daoUsuario dao, dao2;
     Button btnCerrarSesion , btnSalirApp;
-Button btnCrearPreferencias;
+    Button btnCrearPreferencias;
+    Button btDescargar;
 
     TextView tv1;
 
@@ -41,6 +36,7 @@ Button btnCrearPreferencias;
     Usuario usuario = new Usuario();
     Context context=this;
     SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +51,7 @@ Button btnCrearPreferencias;
         btnSalirApp.setOnClickListener(this);
         lista=(ListView)findViewById(R.id.lista);
         btnCrearPreferencias.setOnClickListener(this);
+        btDescargar = findViewById(R.id.btDescargar);
 
         dao=new daoUsuario(this);
         ArrayList<Usuario> l= dao.selectUsuarios();
@@ -86,6 +83,7 @@ Button btnCrearPreferencias;
                 tv1.setText(detalle.get(position));
             }
         });
+
         int id=0;
         Bundle b =getIntent().getExtras();
         id=b.getInt("id");
@@ -108,6 +106,14 @@ Button btnCrearPreferencias;
 
         editor.commit();
 
+        btDescargar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent c=new Intent(Mostrar.this,guardarActivity.class);
+                startActivityForResult(c, 0);
+                //startActivity(c);
+            }
+        });
 
 
     }
@@ -143,50 +149,6 @@ Button btnCrearPreferencias;
                 break;
 
         }
+
     }
-
-    public void serializeClassGSON(View view) {
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(usuario);
-        IOHelper.writeToFile(this, "cityJsonObj.txt", jsonString);
-    }
-
-    public void unserializeClassGSON(View view) {
-        Gson gson = new Gson();
-        try {
-            FileInputStream is = openFileInput("cityJsonObj.txt");
-            String result = IOHelper.stringFromStream(is);
-            //City city = gson.fromJson(Reader Instance, City.class);
-            Usuario usuario = gson.fromJson(result, Usuario.class);
-            tv1.setText("Usuario : " + usuario.getId() + "\n");
-            is.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void readJson(View view) {
-        String jsonString = IOHelper.stringFromAsset(this, "cities.json");
-        try {
-            //JSONObject jsonObject = new JSONObject(jsonString);
-            JSONArray cities = new JSONArray(jsonString);
-
-            String result = "";
-            for (int i = 0; i < cities.length(); i++) {
-                JSONObject city = cities.getJSONObject(i);
-                //new Gson().fromJson(city.toString(), City.class);
-                result += "Country : " + city.getString("country") + "\n" +
-                        "Name : " + city.getString("name") + "\n" +
-                        "Latitude,Longitud :" + city.getDouble("lat") + ", " + city.getString("lng");
-            }
-            tv1.setText(result);
-        } catch (Exception e) {
-            Log.d("ReadPlacesFeedTask", e.getLocalizedMessage());
-        }
-    }
-
-    public void writeJson(View view) {
-        IOHelper.writeToFile(this, "cityJsonObj.txt", usuario.toJsonString());
-    }
-
 }

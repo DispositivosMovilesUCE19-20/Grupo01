@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".guardarActivity">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+
+        <TableLayout android:id="@+id/recipeButtons1"
+            android:layout_marginTop="8sp"
+            android:background="#B0B0B0" android:padding="3dip"
+            android:stretchColumns="0,1" android:layout_alignParentBottom="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TableRow android:gravity="center">
+                <EditText android:text="Fichero"
+                    android:layout_height="wrap_content"
+                    android:layout_width="100px"
+                    android:id="@+id/txtFichero"
+                    android:hint="nombre fichero destino"
+                    android:maxLines="1" >
+                </EditText>
+                <CheckBox android:text="SD"
+                    android:id="@+id/opUbicacionFichero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    android:hint="Guardar en tarjeta SD"
+                </CheckBox>
+                <Button android:id="@+id/btGuardar"
+                    android:text="Guardar" />
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout android:id="@+id/recipeButtons2"
+            android:background="#B0B0B0" android:padding="3dip"
+            android:stretchColumns="0,1" android:layout_alignParentBottom="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TableRow android:gravity="center">
+                <Button android:id="@+id/btRefrescar"
+                    android:text="Refrescar" />
+                <Button android:id="@+id/btCerrar"
+                    android:text="Cerrar" />
+            </TableRow>
+        </TableLayout>
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
