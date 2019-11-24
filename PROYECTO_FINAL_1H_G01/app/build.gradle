@@ -4,8 +4,8 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "ec.edu.uce.optativa3"
-        minSdkVersion 26
+        applicationId "com.example.login"
+        minSdkVersion 15
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -26,4 +30,20 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    //Agregados
+    implementation 'de.hdodenhof:circleimageview:2.2.0' //Imagen Circular
+    implementation 'com.github.bumptech.glide:glide:4.8.0' //Recortar Imagen Descargar Imagen
+    implementation 'com.kbeanie:multipicker:1.5'
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+    implementation 'com.android.volley:volley:1.1.1'
+
+
 }
