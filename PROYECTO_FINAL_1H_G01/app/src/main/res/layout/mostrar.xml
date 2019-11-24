@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/registro"
+    android:orientation="vertical"
+    tools:context=".Mostrar">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txtMensaje"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/servicio" />
+
+            <TextView
+
+                android:layout_width="400dp"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+
+                android:gravity="center|left"
+                android:text="Usuarios Registrados"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+            <ListView
+                android:id="@+id/lista"
+                android:layout_width="match_parent"
+                android:layout_height="365dp"></ListView>
+
+            <TextView
+                android:id="@+id/lv1"
+                android:layout_width="match_parent"
+                android:layout_height="166dp"
+                android:gravity="center"
+                android:text="Detalle de contacto (Seleccione para ver)"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="81dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btDescargar"
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:onClick="guardarJson"
+                    android:text="Descargar Datos" />
+
+                <Button
+                    android:id="@+id/btnPreferencias"
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:text="Ver Preferencias" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="81dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSalirApp"
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:text="Salir" />
+
+                <Button
+                    android:id="@+id/btCerrarSesion"
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:text="Cerrar Sesión" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
