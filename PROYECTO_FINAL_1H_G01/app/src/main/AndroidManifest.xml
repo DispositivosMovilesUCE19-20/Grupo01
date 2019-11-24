@@ -13,12 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name="ec.edu.uce.optativa3.controlador.activity_form"></activity>
-        <activity android:name=".item_list_data" />
-        <activity android:name=".guardarActivity" />
-        <activity android:name=".Inicio" />
-        <activity android:name=".Mostrar" />
-        <activity android:name=".Registrar" />
-        <activity android:name=".MainActivity">
+        <activity android:name="ec.edu.uce.optativa3.controlador.item_list_data" />
+        <activity android:name="ec.edu.uce.optativa3.controlador.guardarActivity" />
+        <activity android:name="ec.edu.uce.optativa3.controlador.Inicio" />
+        <activity android:name="ec.edu.uce.optativa3.controlador.Mostrar" />
+        <activity android:name="ec.edu.uce.optativa3.controlador.Registrar" />
+        <activity android:name="ec.edu.uce.optativa3.controlador.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

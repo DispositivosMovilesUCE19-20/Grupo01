@@ -16,16 +16,16 @@ public class Usuario {
     private String becado;
 
 
-    public Usuario(){
+    public Usuario() {
 
     }
 
-    public boolean isNull(){
+    public boolean isNull() {
 
-        if (nombre.equals("")&&apellido.equals("")&&usuario.equals("")&&contrasena.equals("")&&correo.equals("")&&celular.equals("")){
+        if (nombre.equals("") && apellido.equals("") && usuario.equals("") && contrasena.equals("") && correo.equals("") && celular.equals("")) {
 
             return false;
-        }else{
+        } else {
             return true;
         }
 
@@ -132,8 +132,6 @@ public class Usuario {
         this.genero = genero;
         this.becado = becado;
     }
-
-
 
 
     @Override

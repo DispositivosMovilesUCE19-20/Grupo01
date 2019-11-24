@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/registro"
     android:orientation="vertical"
-    tools:context=".Mostrar">
+    tools:context="ec.edu.uce.optativa3.controlador.Mostrar">
 
 
     <ScrollView

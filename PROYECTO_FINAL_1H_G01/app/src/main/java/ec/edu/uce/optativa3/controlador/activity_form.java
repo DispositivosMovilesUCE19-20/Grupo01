@@ -40,8 +40,6 @@ public class activity_form extends AppCompatActivity {
         wsBecado = findViewById(R.id.sw_becado);
 
 
-
-
     }
 
 

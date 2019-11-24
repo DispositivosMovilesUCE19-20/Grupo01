@@ -73,8 +73,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolderData
             super(itemView);
 
 
-
-
             user = itemView.findViewById(R.id.id_user);
             mail = itemView.findViewById(R.id.id_mail);
             celular = itemView.findViewById(R.id.id_celular);

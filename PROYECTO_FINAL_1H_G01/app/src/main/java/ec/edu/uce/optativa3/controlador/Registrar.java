@@ -1,4 +1,4 @@
-package com.example.login;
+package ec.edu.uce.optativa3.controlador;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -6,13 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +23,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
+import com.example.login.R;
+
+import ec.edu.uce.optativa3.utilities.daoUsuario;
+
 import com.kbeanie.multipicker.api.CacheLocation;
 import com.kbeanie.multipicker.api.CameraImagePicker;
 import com.kbeanie.multipicker.api.ImagePicker;
@@ -38,7 +39,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.security.acl.Group;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -105,9 +105,9 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
 
         btnRegistrar.setOnClickListener(this);
         btnCancelar.setOnClickListener(this);
-        dao=new daoUsuario(this);
+        dao = new daoUsuario(this);
 
-        tvMensaje = (TextView)findViewById(R.id.txtMensaje);
+        tvMensaje = (TextView) findViewById(R.id.txtMensaje);
         queue = Volley.newRequestQueue(this);
 
         obtenerDatos();
@@ -120,7 +120,7 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
         imagePicker.setImagePickerCallback(new ImagePickerCallback() {
             @Override
             public void onImagesChosen(List<ChosenImage> list) {
-                if(!list.isEmpty()){
+                if (!list.isEmpty()) {
                     String path = list.get(0).getOriginalPath();
                     fotoPerfilUri = Uri.parse(path);
                     fotoPerfil.setImageURI(fotoPerfilUri);
@@ -129,7 +129,7 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
 
             @Override
             public void onError(String s) {
-                Toast.makeText(Registrar.this, "Error: "+s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Registrar.this, "Error: " + s, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -143,7 +143,7 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
 
             @Override
             public void onError(String s) {
-                Toast.makeText(Registrar.this, "Error: "+s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Registrar.this, "Error: " + s, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -153,12 +153,12 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                 AlertDialog.Builder dialog = new AlertDialog.Builder(Registrar.this);
                 dialog.setTitle("Foto de perfil");
 
-                String[] items = {"Galeria","Camara"};
+                String[] items = {"Galeria", "Camara"};
 
                 dialog.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i){
+                        switch (i) {
                             case 0:
                                 imagePicker.pickImage();
                                 break;
@@ -183,16 +183,16 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int mes, int dia) {
                         Calendar calendarResultado = Calendar.getInstance();
-                        calendarResultado.set(Calendar.YEAR,year);
-                        calendarResultado.set(Calendar.MONTH,mes);
-                        calendarResultado.set(Calendar.DAY_OF_MONTH,dia);
+                        calendarResultado.set(Calendar.YEAR, year);
+                        calendarResultado.set(Calendar.MONTH, mes);
+                        calendarResultado.set(Calendar.DAY_OF_MONTH, dia);
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                         Date date = calendarResultado.getTime();
                         fechaDeNacimientoTexto = simpleDateFormat.format(date);
                         fechaDeNacimiento = date.getTime();
                         txtFechaDeNacimiento.setText(fechaDeNacimientoTexto);
                     }
-                },calendar.get(Calendar.YEAR)-18,calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+                }, calendar.get(Calendar.YEAR) - 18, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
@@ -202,9 +202,9 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == Picker.PICK_IMAGE_DEVICE && resultCode == RESULT_OK){
+        if (requestCode == Picker.PICK_IMAGE_DEVICE && resultCode == RESULT_OK) {
             imagePicker.submit(data);
-        }else if(requestCode == Picker.PICK_IMAGE_CAMERA && resultCode == RESULT_OK){
+        } else if (requestCode == Picker.PICK_IMAGE_CAMERA && resultCode == RESULT_OK) {
             cameraPicker.reinitialize(pickerPath);
             cameraPicker.submit(data);
         }
@@ -233,26 +233,25 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnRegistrar2:
 
                 final String genero;
 
-                if(rdHombre.isChecked()){
+                if (rdHombre.isChecked()) {
                     genero = "Hombre";
-                }else{
+                } else {
                     genero = "Mujer";
                 }
 
                 final String beca;
 
 
-                if(switchB.isChecked())
-                {
+                if (switchB.isChecked()) {
 
                     beca = "Becado";
 
-                }else{
+                } else {
                     beca = "No es Becado";
                 }
 
@@ -268,35 +267,32 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                 u.setBecado(beca);
 
 
-
-                if(fotoPerfilUri!=null) {
+                if (fotoPerfilUri != null) {
 
                     u.setFotoPerfilURL("Usuario \n" + "");
 
-                }else{
+                } else {
 
                     u.setFotoPerfilURL("https://firebasestorage.googleapis.com/v0/b/fir-chat-1ab2c.appspot.com/o/foto_perfil%2Ffoto_por_defecto.png?alt=media&token=40eed45f-bd7f-4178-8e7c-092d7eb1fb64");
 
                 }
 
 
+                if (!u.isNull()) {
+                    Toast.makeText(this, "Error:campos vacios", Toast.LENGTH_LONG).show();
 
-
-                if(!u.isNull()){
-                    Toast.makeText(this,"Error:campos vacios",Toast.LENGTH_LONG).show();
-
-                }else if(dao.insertarUsuario(u)){
-                    Toast.makeText(this,"Registro Exitoso !!",Toast.LENGTH_LONG).show();
-                    Intent i2=new Intent(Registrar.this,MainActivity.class);
+                } else if (dao.insertarUsuario(u)) {
+                    Toast.makeText(this, "Registro Exitoso !!", Toast.LENGTH_LONG).show();
+                    Intent i2 = new Intent(Registrar.this, MainActivity.class);
                     startActivity(i2);
                     finish();
 
-                }else{
-                    Toast.makeText(this,"Usuario Ya Registrado!!!",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "Usuario Ya Registrado!!!", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.btnCancelar:
-                Intent i=new Intent(Registrar.this,MainActivity.class);
+                Intent i = new Intent(Registrar.this, MainActivity.class);
                 startActivity(i);
                 finish();
                 break;
@@ -304,11 +300,9 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
         }
 
 
-
-
     }
 
-    private void obtenerDatos(){
+    private void obtenerDatos() {
         String url = "https://grup1ser.herokuapp.com/";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {

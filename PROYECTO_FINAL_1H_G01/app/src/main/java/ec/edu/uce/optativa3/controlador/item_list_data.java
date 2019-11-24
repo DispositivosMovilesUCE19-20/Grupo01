@@ -1,8 +1,10 @@
-package com.example.login;
+package ec.edu.uce.optativa3.controlador;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.login.R;
 
 public class item_list_data extends AppCompatActivity {
 

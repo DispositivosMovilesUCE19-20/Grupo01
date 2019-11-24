@@ -11,7 +11,7 @@
     android:isScrollContainer="true"
     android:keepScreenOn="false"
     android:visibility="visible"
-    tools:context=".MainActivity">
+    tools:context="ec.edu.uce.optativa3.controlador.MainActivity">
 
     <EditText
         android:id="@+id/User"

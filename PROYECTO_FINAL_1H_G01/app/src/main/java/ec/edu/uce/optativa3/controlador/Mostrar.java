@@ -1,7 +1,6 @@
-package com.example.login;
+package ec.edu.uce.optativa3.controlador;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,10 +19,6 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.io.IOException;
-
-import java.io.OutputStreamWriter;
-import java.util.ListIterator;
 
 import android.widget.Toast;
 
@@ -34,6 +28,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.login.R;
+
+import ec.edu.uce.optativa3.utilities.daoUsuario;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,25 +38,26 @@ import org.json.JSONObject;
 
 import ec.edu.uce.optativa3.modelo.Usuario;
 import ec.edu.uce.optativa3.vistas.DataAdapter;
-import ec.edu.uce.optativa3.controlador.activity_form;
 
 
-public class Mostrar extends AppCompatActivity implements View.OnClickListener{
+public class Mostrar extends AppCompatActivity implements View.OnClickListener {
 
     daoUsuario dao, dao2;
-    Button btnCerrarSesion , btnSalirApp;
+    Button btnCerrarSesion, btnSalirApp;
     Button btnCrearPreferencias;
     Button btDescargar;
 
     TextView tv1;
 
-    ArrayList<String> list, detalle;
+    static ArrayList<String> list;
+    ArrayList<String> detalle;
     ListView lista;
     ArrayList<Usuario> l;
 
+    //daoUsuario dao;
 
     Usuario usuario = new Usuario();
-    Context context=this;
+    Context context = this;
     SharedPreferences.Editor editor;
 
     TextView tvMensaje;
@@ -73,46 +71,46 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mostrar);
 
-        btnCerrarSesion=(Button)findViewById(R.id.btCerrarSesion);
-        btnCrearPreferencias=(Button)findViewById(R.id.btnPreferencias);
-        btnSalirApp=(Button)findViewById(R.id.btnSalirApp);
-        tv1=(TextView)findViewById(R.id.lv1);
+        btnCerrarSesion = (Button) findViewById(R.id.btCerrarSesion);
+        btnCrearPreferencias = (Button) findViewById(R.id.btnPreferencias);
+        btnSalirApp = (Button) findViewById(R.id.btnSalirApp);
+        tv1 = (TextView) findViewById(R.id.lv1);
         btnCerrarSesion.setOnClickListener(this);
         btnSalirApp.setOnClickListener(this);
-        lista=(ListView)findViewById(R.id.lista);
+        lista = (ListView) findViewById(R.id.lista);
         btnCrearPreferencias.setOnClickListener(this);
         btDescargar = findViewById(R.id.btDescargar);
 
-        dao=new daoUsuario(this);
+        dao = new daoUsuario(this);
         l = dao.selectUsuarios();
 
-        tvMensaje = (TextView)findViewById(R.id.txtMensaje);
+        tvMensaje = findViewById(R.id.txtMensaje);
         queue = Volley.newRequestQueue(this);
 
         obtenerDatos("msg");
 
-        list=new ArrayList<String>();
+        list = new ArrayList<String>();
 
-        for (Usuario u:l){
-            list.add(u.getNombre()+" "+u.getApellido());
+        for (Usuario u : l) {
+            //list.add(u.getNombre()+" "+u.getApellido());
+            list.add("" + u.getId());
         }
 
-        ArrayAdapter<String> a=new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,list );
+        ArrayAdapter<String> a = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, list);
         lista.setAdapter(a);
 
-        dao2=new daoUsuario(this);
-        ArrayList<Usuario> l2= dao2.selectUsuarios();
+        dao2 = new daoUsuario(this);
+        ArrayList<Usuario> l2 = dao2.selectUsuarios();
         detalle = new ArrayList<String>();
-        for (Usuario u:l2){
+        for (Usuario u : l2) {
             detalle.add("Usuario: " + u.getUsuario() + "\n" +
                     "Correo: " + u.getCorreo() + "\n" +
                     "Celular: " + u.getCelular() + "\n" +
                     "FechaNacimiento: " + u.getFechaNacimiento() + "\n" +
                     "Genero: " + u.getGenero() + "\n" +
                     "Becado: " + u.getBecado() + "\n");
-                    //u.toJsonString() );
+            //u.toJsonString() );
         }
-
 
 
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,24 +120,23 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
-        int id=0;
-        Bundle b =getIntent().getExtras();
-        id=b.getInt("id");
-        dao2=new daoUsuario(this);
-        Usuario u=dao2.getUsuarioById(id);
+        int id = 0;
+        Bundle b = getIntent().getExtras();
+        id = b.getInt("id");
+        dao2 = new daoUsuario(this);
+        Usuario u = dao2.getUsuarioById(id);
 
 
+        SharedPreferences shardPrefs = getSharedPreferences("ArchivoSp", context.MODE_PRIVATE);
 
-        SharedPreferences shardPrefs=getSharedPreferences("ArchivoSp",context.MODE_PRIVATE);
-
-        SharedPreferences sharedPref= getPreferences(context.MODE_PRIVATE);
-        editor =sharedPref.edit();
-        editor.putString("Nombre",u.getNombre());
-        editor.putString("Apellido",u.getApellido());
-        editor.putString("Correo",u.getCorreo());
-        editor.putString("Celular",u.getCelular());
-        editor.putString("Becado",u.getBecado());
-        editor.putString("FechaNacimiento",u.getFechaNacimiento());
+        SharedPreferences sharedPref = getPreferences(context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+        editor.putString("Nombre", u.getNombre());
+        editor.putString("Apellido", u.getApellido());
+        editor.putString("Correo", u.getCorreo());
+        editor.putString("Celular", u.getCelular());
+        editor.putString("Becado", u.getBecado());
+        editor.putString("FechaNacimiento", u.getFechaNacimiento());
 
 
         editor.commit();
@@ -149,9 +146,6 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
         lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long id) {
-
-
-                //Toast.makeText(getApplicationContext(), "POS: " + pos, Toast.LENGTH_SHORT).show();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(Mostrar.this);
                 builder.setTitle("Seleccione una opción");
@@ -163,6 +157,8 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
                     public void onClick(DialogInterface dialog, int item) {
                         switch (item) {
                             case 0: // Editar
+
+                                //LLAMAR AL METODO UPDATE DEL DAO
                                 //Intent intent = new Intent(Mostrar.this, activity_form.class);
                                 //intent.putExtra("position", position);
                                 //startActivity(intent);
@@ -170,9 +166,10 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
 
                                 break;
                             case 1: // Eliminar
-                                //vehiculos.remove(position);
-                                //System.out.println("Size: " + vehiculos.size());
-                                //adapter.notifyDataSetChanged();
+
+                                //LLAMAR AL METODO DELETE DEL DAO
+
+
                                 obtenerDatos("msg3");
                                 break;
                         }
@@ -180,6 +177,10 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
                 });
                 builder.show();
 
+                //Con este recuperas arg0.getItemAtPosition(pos) el ID del objeto señalado
+                //Toast.makeText(getApplicationContext(), ""+arg0.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
+
+                //updateRecyclerView();
 
                 return true;
             }
@@ -188,14 +189,11 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
     }
 
 
-
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSalirApp:
-                Intent intent =new Intent(Intent.ACTION_MAIN);
+                Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -205,57 +203,60 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
                 startActivity(i2);
                 editor.clear();
                 editor.commit(); // commit changes
-                Toast.makeText(this,"Preferencias Compartidas Eliminado ",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Preferencias Compartidas Eliminado ", Toast.LENGTH_LONG).show();
                 finish();
                 break;
             case R.id.btnPreferencias:
-                SharedPreferences share =getPreferences(context.MODE_PRIVATE);
-                String valor = share.getString("Nombre","No hay dato");
-                String valor2 = share.getString("Apellido","No hay dato");
-                String valor3 = share.getString("Correo","No hay dato");
-                String valor4 = share.getString("Celular","No hay dato");
-                String valor5 = share.getString("Becado","No hay dato");
-                String valor6 = share.getString("FechaNacimiento","No hay dato");
+                SharedPreferences share = getPreferences(context.MODE_PRIVATE);
+                String valor = share.getString("Nombre", "No hay dato");
+                String valor2 = share.getString("Apellido", "No hay dato");
+                String valor3 = share.getString("Correo", "No hay dato");
+                String valor4 = share.getString("Celular", "No hay dato");
+                String valor5 = share.getString("Becado", "No hay dato");
+                String valor6 = share.getString("FechaNacimiento", "No hay dato");
 
-                Toast.makeText(this,"Datos Guardados: "+valor+ "\n" +valor2+ "\n" +valor3+ "\n" +valor4+ "\n" +
-                        valor5+ "\n" +valor6,Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Datos Guardados: " + valor + "\n" + valor2 + "\n" + valor3 + "\n" + valor4 + "\n" +
+                        valor5 + "\n" + valor6, Toast.LENGTH_LONG).show();
                 break;
 
         }
 
     }
 
-    public void guardarJson(View view)
-    {
+
+    public static void updateRecyclerView() {
+
+    }
+
+
+    public void guardarJson(View view) {
         String carpetaSDCard =
                 Environment.getExternalStorageDirectory().getAbsolutePath();
-        File carpetaWifi = new File (carpetaSDCard +
+        File carpetaWifi = new File(carpetaSDCard +
                 File.separator + "Download" + File.separator + "informacionBD.json");
-        try
-        {
+        try {
             //creamos las carpetas si no existen
-            File carpetaWifiDir = new File (carpetaSDCard);
+            File carpetaWifiDir = new File(carpetaSDCard);
             carpetaWifiDir.mkdirs();
 
             String texto = "";
             //texto = "//creamos las carpetas si no existen";
 
-            int sizeL = l.size() -1;
+            int sizeL = l.size() - 1;
             int contadorL = 0;
 
-            for (Usuario u:l){
+            for (Usuario u : l) {
 
-                if(contadorL == 0){
+                if (contadorL == 0) {
 
                     texto = texto + "[" + "\n" + u.toJsonString() + "," + "\n";
 
-                }else{
-                    if(contadorL == sizeL){
+                } else {
+                    if (contadorL == sizeL) {
                         //contadorL < sizeL && contadorL != 0
                         texto = texto + u.toJsonString() + "\n" + "]";
 
-                    }
-                    else{
+                    } else {
                         texto = texto + u.toJsonString() + "," + "\n";
 
                     }
@@ -275,9 +276,7 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
             Toast.makeText(getApplicationContext(),
                     "Datos Usuarios guardados en fichero: " +
                             carpetaWifi.toString(), Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             //error, mostrar mensaje
             Toast.makeText(getApplicationContext(),
                     "Error: " + ex.getMessage() + " " + carpetaWifi.toString(),
@@ -285,7 +284,7 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    private void obtenerDatos(String valorMensaje){
+    private void obtenerDatos(String valorMensaje) {
         String url = "https://grup1ser.herokuapp.com/";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
