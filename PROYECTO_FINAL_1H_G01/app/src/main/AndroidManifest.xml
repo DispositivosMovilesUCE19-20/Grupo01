@@ -3,7 +3,7 @@
     package="com.example.login">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".guardarActivity"></activity>
+        <activity android:name="ec.edu.uce.optativa3.controlador.activity_form"></activity>
+        <activity android:name=".item_list_data" />
+        <activity android:name=".guardarActivity" />
         <activity android:name=".Inicio" />
         <activity android:name=".Mostrar" />
         <activity android:name=".Registrar" />

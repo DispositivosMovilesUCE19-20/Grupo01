@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import ec.edu.uce.optativa3.modelo.Usuario;
+
 public class Inicio extends AppCompatActivity implements View.OnClickListener {
 Button btnMostrar , btnSalir;
 TextView nombre;

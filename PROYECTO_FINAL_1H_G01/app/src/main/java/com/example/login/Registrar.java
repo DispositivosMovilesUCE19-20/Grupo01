@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import ec.edu.uce.optativa3.modelo.Usuario;
 
 /**
  * Created by Freddy
@@ -301,6 +302,10 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                 break;
 
         }
+
+
+
+
     }
 
     private void obtenerDatos(){

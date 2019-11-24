@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import ec.edu.uce.optativa3.modelo.Usuario;
+
 public class daoUsuario {
 Context c;
 Usuario u;

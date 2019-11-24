@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">PROYECTO_FINAL_1H_G01</string>
     <string name="servicio">Grupo 5</string>
+
+    <!-- From -->
+    <string name="input_user">Ingrese la Cedula</string>
+    <string name="input_mail">Ingrese el correo</string>
+    <string name="input_celular">Ingrese el Celular</string>
+    <string name="switch_Becado">Becado:</string>
 </resources>

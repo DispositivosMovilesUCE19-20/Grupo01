@@ -1,12 +1,16 @@
 package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,6 +39,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ec.edu.uce.optativa3.modelo.Usuario;
+import ec.edu.uce.optativa3.vistas.DataAdapter;
+import ec.edu.uce.optativa3.controlador.activity_form;
+
 
 public class Mostrar extends AppCompatActivity implements View.OnClickListener{
 
@@ -56,6 +64,8 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
 
     TextView tvMensaje;
     private RequestQueue queue;
+
+    public static DataAdapter adapter;
 
 
     @Override
@@ -79,7 +89,7 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
         tvMensaje = (TextView)findViewById(R.id.txtMensaje);
         queue = Volley.newRequestQueue(this);
 
-        obtenerDatos();
+        obtenerDatos("msg");
 
         list=new ArrayList<String>();
 
@@ -92,7 +102,7 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
 
         dao2=new daoUsuario(this);
         ArrayList<Usuario> l2= dao2.selectUsuarios();
-        detalle=new ArrayList<String>();
+        detalle = new ArrayList<String>();
         for (Usuario u:l2){
             detalle.add("Usuario: " + u.getUsuario() + "\n" +
                     "Correo: " + u.getCorreo() + "\n" +
@@ -134,8 +144,52 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
 
         editor.commit();
 
+        //ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mobileArray);
+        //lista.setAdapter(adapter);
+        lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long id) {
+
+
+                //Toast.makeText(getApplicationContext(), "POS: " + pos, Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Mostrar.this);
+                builder.setTitle("Seleccione una opción");
+
+                String[] options = {"Editar", "Eliminar"};
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        switch (item) {
+                            case 0: // Editar
+                                //Intent intent = new Intent(Mostrar.this, activity_form.class);
+                                //intent.putExtra("position", position);
+                                //startActivity(intent);
+                                obtenerDatos("msg2");
+
+                                break;
+                            case 1: // Eliminar
+                                //vehiculos.remove(position);
+                                //System.out.println("Size: " + vehiculos.size());
+                                //adapter.notifyDataSetChanged();
+                                obtenerDatos("msg3");
+                                break;
+                        }
+                    }
+                });
+                builder.show();
+
+
+                return true;
+            }
+        });
 
     }
+
+
+
+
 
     @Override
     public void onClick(View v) {
@@ -231,16 +285,17 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    private void obtenerDatos(){
+    private void obtenerDatos(String valorMensaje){
         String url = "https://grup1ser.herokuapp.com/";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+
                     JSONArray jsonArray = response.getJSONArray("mensaje");
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    String msj = jsonObject.getString("msg");
+                    String msj = jsonObject.getString("" + valorMensaje);
 
 
                     tvMensaje.setText(msj);

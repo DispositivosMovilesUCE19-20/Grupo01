@@ -21,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ec.edu.uce.optativa3.modelo.Usuario;
+
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener {
     EditText user,pass;
     Button btnEntrar,btnRegistrar;
