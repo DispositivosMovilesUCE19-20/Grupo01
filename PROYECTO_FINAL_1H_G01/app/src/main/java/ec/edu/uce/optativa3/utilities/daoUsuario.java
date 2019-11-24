@@ -62,9 +62,9 @@ public class daoUsuario {
     }
 
 
-    public Integer eliminarUsuario(String id) {
+    public boolean eliminarUsuario(String user) {
 
-        return sql.delete("usuario", "id = ?", new String[]{id});
+        return (sql.delete("usuario", "usuario = '" + user + "'", null))>0;
 
     }
 

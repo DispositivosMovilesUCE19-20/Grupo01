@@ -93,7 +93,7 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
 
         for (Usuario u : l) {
             //list.add(u.getNombre()+" "+u.getApellido());
-            list.add("" + u.getId());
+            list.add(u.getUsuario());
         }
 
         ArrayAdapter<String> a = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, list);
@@ -159,15 +159,49 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                             case 0: // Editar
 
                                 //LLAMAR AL METODO UPDATE DEL DAO
-                                //Intent intent = new Intent(Mostrar.this, activity_form.class);
-                                //intent.putExtra("position", position);
-                                //startActivity(intent);
+                                Intent intent = new Intent(Mostrar.this, activity_form.class);
+                                //intent.putExtra("" + arg0.getItemAtPosition(pos), user);
+                                intent.putExtra("id", u.getId());
+                                startActivity(intent);
                                 obtenerDatos("msg2");
 
                                 break;
                             case 1: // Eliminar
 
                                 //LLAMAR AL METODO DELETE DEL DAO
+
+                                AlertDialog.Builder b = new AlertDialog.Builder(Mostrar.this);
+                                b.setMessage("Está seguro que desea eliminar la cuenta??");
+                                b.setCancelable(false);
+
+                                b.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        if (dao.eliminarUsuario("" + arg0.getItemAtPosition(pos))) {
+                                            Toast.makeText(Mostrar.this, "Se eliminó correctamente", Toast.LENGTH_LONG).show();
+
+                                            //Intent i2 = new Intent(Mostrar.this, MainActivity.class);
+                                            //startActivity(i2);
+                                            //finish();
+
+                                        } else {
+                                            Toast.makeText(Mostrar.this, "No se eliminó correctamente", Toast.LENGTH_LONG).show();
+
+                                        }
+
+                                    }
+                                });
+
+                                b.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+
+                                b.show();
 
 
                                 obtenerDatos("msg3");

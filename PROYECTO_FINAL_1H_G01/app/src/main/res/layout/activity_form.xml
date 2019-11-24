@@ -39,65 +39,27 @@
                 android:inputType="textPersonName" />
 
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/txt_contasena"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <Switch
-                    android:id="@+id/sw_becado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/switch_Becado"
-                    android:textSize="18dp" />
-
-                <!--<CheckBox-->
-                <!--android:id="@+id/sw_enrollment"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:text="@string/switch_enrollment"-->
-                <!--android:textSize="18dp" />-->
-
-
-                <!--<RadioGroup-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_weight="1">-->
-                <!--<TextView-->
-                <!--android:id="@+id/textView"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:textSize="18dp"-->
-                <!--android:text="@string/switch_enrollment" />-->
-                <!--<RadioButton-->
-                <!--android:id="@+id/sw_enrollment_yes"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:onClick="onRadioButtonClicked"-->
-                <!--android:text="Si" />-->
-                <!--<RadioButton-->
-                <!--android:id="@+id/sw_enrollment_no"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:onClick="onRadioButtonClicked"-->
-                <!--android:text="No" />-->
-                <!--</RadioGroup>-->
-
-            </LinearLayout>
+                android:hint="@string/input_contrasena"
+                android:inputType="textPersonName" />
 
             <Button
-                android:id="@+id/btn_save"
+                android:id="@+id/btn_saveF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Guardar" />
+
+            <Button
+                android:id="@+id/btn_CancelarF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Cancelar" />
 
         </LinearLayout>
     </ScrollView>
