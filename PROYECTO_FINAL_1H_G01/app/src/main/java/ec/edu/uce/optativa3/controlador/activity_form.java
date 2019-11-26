@@ -11,20 +11,12 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.login.R;
 
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import ec.edu.uce.optativa3.modelo.Usuario;
-import ec.edu.uce.optativa3.utilities.daoUsuario;
+import ec.edu.uce.optativa3.modelo.daoUsuario;
 
 public class activity_form extends AppCompatActivity implements View.OnClickListener {
 

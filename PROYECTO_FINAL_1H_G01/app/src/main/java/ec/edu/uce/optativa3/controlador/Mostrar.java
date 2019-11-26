@@ -31,7 +31,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.login.R;
 
-import ec.edu.uce.optativa3.utilities.daoUsuario;
+import ec.edu.uce.optativa3.modelo.daoUsuario;
 
 import org.json.JSONArray;
 import org.json.JSONException;
