@@ -11,11 +11,12 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 
+import com.android.volley.RequestQueue;
 import com.example.login.R;
 
 
 import ec.edu.uce.optativa3.modelo.Usuario;
-import ec.edu.uce.optativa3.utilities.daoUsuario;
+import ec.edu.uce.optativa3.modelo.daoUsuario;
 
 public class activity_form extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,7 +25,7 @@ public class activity_form extends AppCompatActivity implements View.OnClickList
     private EditText txtMail;
     private EditText txtCelular;
     private EditText txtContrasena;
-
+    private static RequestQueue queue;
     int id = 0;
 
     Usuario u = new Usuario();
@@ -37,6 +38,7 @@ public class activity_form extends AppCompatActivity implements View.OnClickList
 
     private daoUsuario dao;
     Intent x;
+
 
 
     @Override
@@ -71,6 +73,8 @@ public class activity_form extends AppCompatActivity implements View.OnClickList
         txtApellido.setText(u.getApellido());
 
 
+
+
     }
 
     public void onClick(View v) {
@@ -96,19 +100,20 @@ public class activity_form extends AppCompatActivity implements View.OnClickList
 
                 } else if (dao.actualizarUsuario(u)) {
 
-                    Toast.makeText(this, "Actualización Exitoso !!", Toast.LENGTH_LONG).show();
+                   // obtenerDatos("msg2");
+                    Toast.makeText(this, "El Estudiante se ha editado correctamente", Toast.LENGTH_LONG).show();
 
                     Intent i6 = new Intent(activity_form.this, Mostrar.class);
                     i6.putExtra("id", u.getId());
                     startActivity(i6);
 
 
-                    Mostrar.obtenerDatos("msg2");
+                   // Mostrar.obtenerDatos("msg2");
 
 
 
                 } else {
-                    Toast.makeText(this, "No se puede actualizar!!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Se produjo un problema en la Edición/Eliminación", Toast.LENGTH_LONG).show();
                 }
                 break;
 
@@ -121,4 +126,7 @@ public class activity_form extends AppCompatActivity implements View.OnClickList
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
+
+
 }

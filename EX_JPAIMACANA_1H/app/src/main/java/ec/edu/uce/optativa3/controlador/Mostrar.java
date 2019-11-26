@@ -26,11 +26,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.login.R;
 
-import ec.edu.uce.optativa3.utilities.daoUsuario;
+import ec.edu.uce.optativa3.modelo.daoUsuario;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -164,7 +165,7 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                                 intent.putExtra("id", u.getId());
                                 startActivity(intent);
 
-                                obtenerDatos("msg2");
+                                //obtenerDatos("msg2");
 
                                 break;
                             case 1: // Eliminar
@@ -180,16 +181,16 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                                     public void onClick(DialogInterface dialog, int which) {
 
                                         if (dao.eliminarUsuario("" + arg0.getItemAtPosition(pos))) {
-                                            Toast.makeText(Mostrar.this, "Se eliminó correctamente", Toast.LENGTH_LONG).show();
-
+                                            //Toast.makeText(Mostrar.this, "Se eliminó correctamente", Toast.LENGTH_LONG).show();
+                                            obtenerDatos2("msg3");
                                             Intent i2 = new Intent(Mostrar.this, Mostrar.class);
                                             i2.putExtra("id", u.getId());
                                             startActivity(i2);
                                             finish();
 
                                         } else {
-                                            Toast.makeText(Mostrar.this, "No se eliminó correctamente", Toast.LENGTH_LONG).show();
-
+                                           // Toast.makeText(Mostrar.this, "No se eliminó correctamente", Toast.LENGTH_LONG).show();
+                                            obtenerDatos2("msg4");
                                         }
 
                                     }
@@ -206,7 +207,7 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                                 b.show();
 
 
-                                obtenerDatos("msg3");
+                                //obtenerDatos("msg3");
                                 break;
                         }
                     }
@@ -235,6 +236,11 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.btCerrarSesion:
+                try {
+                    mandarDatosServidor();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 Intent i2 = new Intent(Mostrar.this, MainActivity.class);
                 startActivity(i2);
                 editor.clear();
@@ -320,7 +326,7 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    public static void obtenerDatos(String valorMensaje) {
+    public  static void obtenerDatos(String valorMensaje) {
         String url = "https://grup1ser.herokuapp.com/";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -331,16 +337,16 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                     JSONArray jsonArray = response.getJSONArray("mensaje");
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
                     String msj = jsonObject.getString("" + valorMensaje);
-
+                  //  Toast.makeText(getApplicationContext() , "Your Message", Toast.LENGTH_LONG).show();
 
                     tvMensaje.setText(msj);
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
+
         },
 
                 new Response.ErrorListener() {
@@ -351,5 +357,98 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                 });
 
         queue.add(request);
+
     }
+
+
+    public  void obtenerDatos2(String valorMensaje) {
+        String url = "https://grup1ser.herokuapp.com/";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+
+                    JSONArray jsonArray = response.getJSONArray("mensaje");
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    String msj = jsonObject.getString("" + valorMensaje);
+                    Toast.makeText(getApplicationContext() , msj, Toast.LENGTH_LONG).show();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+
+        queue.add(request);
+
+    }
+
+
+
+    public void mandarDatosServidor() throws JSONException {
+        String url = "https://servicio-2.herokuapp.com/";
+        String texto = "";
+        //texto = "//creamos las carpetas si no existen";
+
+        int sizeL = l.size() - 1;
+        int contadorL = 0;
+
+        for (Usuario u : l) {
+
+            if (contadorL == 0) {
+
+                texto = texto + "[" + "\n" + u.toJsonString() + "," + "\n";
+
+            } else {
+                if (contadorL == sizeL) {
+                    //contadorL < sizeL && contadorL != 0
+                    texto = texto + u.toJsonString() + "\n" + "]";
+
+                } else {
+                    texto = texto + u.toJsonString() + "," + "\n";
+
+                }
+            }
+
+
+            //texto = texto + u.toJsonString() + "\n";
+
+            contadorL++;
+
+        }
+
+
+
+        JSONArray jsonArr = new JSONArray(texto);
+
+
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url  ,jsonArr,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        Volley.newRequestQueue(this).add(jsonArrayRequest);
+
+
+    }
+
+
+
 }

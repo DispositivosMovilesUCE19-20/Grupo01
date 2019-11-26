@@ -1,4 +1,4 @@
-package ec.edu.uce.optativa3.utilities;
+package ec.edu.uce.optativa3.modelo;
 
 import android.content.ContentValues;
 import android.content.Context;

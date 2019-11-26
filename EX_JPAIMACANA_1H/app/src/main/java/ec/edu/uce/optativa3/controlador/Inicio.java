@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.login.R;
 
-import ec.edu.uce.optativa3.utilities.daoUsuario;
+import ec.edu.uce.optativa3.modelo.daoUsuario;
 
 import ec.edu.uce.optativa3.modelo.Usuario;
 
