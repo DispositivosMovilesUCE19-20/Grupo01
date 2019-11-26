@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">EX_ARCOLUMBA_1H</string>
+    <string name="servicio">Grupo 1</string>
+
+    <!-- From -->
+    <string name="input_nombre">Ingrese el nombre</string>
+    <string name="input_apellido">Ingrese el apellido</string>
+    <string name="input_mail">Ingrese el correo</string>
+    <string name="input_celular">Ingrese el Celular</string>
+    <string name="input_contrasena">Ingrese la nueva contraseña</string>
+</resources>
