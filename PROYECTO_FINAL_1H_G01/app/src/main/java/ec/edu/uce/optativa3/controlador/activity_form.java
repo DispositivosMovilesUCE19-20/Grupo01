@@ -19,7 +19,8 @@ import ec.edu.uce.optativa3.utilities.daoUsuario;
 
 public class activity_form extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText txtUser;
+    private EditText txtNombre;
+    private EditText txtApellido;
     private EditText txtMail;
     private EditText txtCelular;
     private EditText txtContrasena;
@@ -43,7 +44,8 @@ public class activity_form extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
 
-        txtUser = findViewById(R.id.txt_user);
+        txtNombre = findViewById(R.id.txt_nombre);
+        txtApellido = findViewById(R.id.txt_apellido);
         txtMail = findViewById(R.id.txt_mail);
         txtCelular = findViewById(R.id.txt_celular);
         txtContrasena = findViewById(R.id.txt_contasena);
@@ -60,6 +62,14 @@ public class activity_form extends AppCompatActivity implements View.OnClickList
         id = b.getInt("id");
         dao = new daoUsuario(this);
 
+        u = dao.getUsuarioById(id);
+
+        txtMail.setText(u.getCorreo());
+        txtContrasena.setText(u.getContrasena());
+        txtCelular.setText(u.getCelular());
+        txtNombre.setText(u.getNombre());
+        txtApellido.setText(u.getApellido());
+
 
     }
 
@@ -75,8 +85,8 @@ public class activity_form extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btn_saveF:
 
-                Usuario u = new Usuario();
-                u.setUsuario(txtUser.getText().toString());
+                u.setNombre(txtNombre.getText().toString());
+                u.setApellido(txtApellido.getText().toString());
                 u.setContrasena(txtContrasena.getText().toString());
                 u.setCelular(txtCelular.getText().toString());
                 u.setCorreo(txtMail.getText().toString());
@@ -84,14 +94,21 @@ public class activity_form extends AppCompatActivity implements View.OnClickList
                 if (!u.isNull()) {
                     Toast.makeText(this, "Error:campos vacios", Toast.LENGTH_LONG).show();
 
-                } else if (dao.insertarUsuario(u)) {
-                    Toast.makeText(this, "Registro Exitoso !!", Toast.LENGTH_LONG).show();
-                    Intent i2 = new Intent(activity_form.this, Mostrar.class);
-                    startActivity(i2);
-                    finish();
+                } else if (dao.actualizarUsuario(u)) {
+
+                    Toast.makeText(this, "Actualización Exitoso !!", Toast.LENGTH_LONG).show();
+
+                    Intent i6 = new Intent(activity_form.this, Mostrar.class);
+                    i6.putExtra("id", u.getId());
+                    startActivity(i6);
+
+
+                    Mostrar.obtenerDatos("msg2");
+
+
 
                 } else {
-                    Toast.makeText(this, "Usuario Ya Registrado!!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "No se puede actualizar!!!", Toast.LENGTH_LONG).show();
                 }
                 break;
 

@@ -64,7 +64,7 @@ public class daoUsuario {
 
     public boolean eliminarUsuario(String user) {
 
-        return (sql.delete("usuario", "usuario = '" + user + "'", null))>0;
+        return (sql.delete("usuario", "usuario = '" + user + "'", null)) > 0;
 
     }
 
@@ -129,5 +129,29 @@ public class daoUsuario {
 
         }
         return null;
+    }
+
+
+    public Usuario getUsuarioByUser(String user) {
+        lista = selectUsuarios();
+        for (Usuario us : lista) {
+            if (us.getUsuario() == user) {
+                return us;
+            }
+
+        }
+        return null;
+    }
+
+    public boolean actualizarUsuario(Usuario u) {
+
+        ContentValues cv = new ContentValues();
+        cv.put("pass", u.getContrasena());
+        cv.put("nombre", u.getNombre());
+        cv.put("ap", u.getApellido());
+        cv.put("cel", u.getCelular());
+        cv.put("mail", u.getCorreo());
+        return (sql.update("usuario",cv, "id = " + u.getId(), null) > 0);
+
     }
 }

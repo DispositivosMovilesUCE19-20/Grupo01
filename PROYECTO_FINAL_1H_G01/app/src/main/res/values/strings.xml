@@ -3,7 +3,8 @@
     <string name="servicio">Grupo 5</string>
 
     <!-- From -->
-    <string name="input_user">Ingrese la Cedula</string>
+    <string name="input_nombre">Ingrese el nombre</string>
+    <string name="input_apellido">Ingrese el apellido</string>
     <string name="input_mail">Ingrese el correo</string>
     <string name="input_celular">Ingrese el Celular</string>
     <string name="input_contrasena">Ingrese la nueva contraseña</string>

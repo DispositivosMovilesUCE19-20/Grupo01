@@ -60,8 +60,8 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
     Context context = this;
     SharedPreferences.Editor editor;
 
-    TextView tvMensaje;
-    private RequestQueue queue;
+    static TextView tvMensaje;
+    private static RequestQueue queue;
 
     public static DataAdapter adapter;
 
@@ -163,6 +163,7 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                                 //intent.putExtra("" + arg0.getItemAtPosition(pos), user);
                                 intent.putExtra("id", u.getId());
                                 startActivity(intent);
+
                                 obtenerDatos("msg2");
 
                                 break;
@@ -181,9 +182,10 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                                         if (dao.eliminarUsuario("" + arg0.getItemAtPosition(pos))) {
                                             Toast.makeText(Mostrar.this, "Se eliminó correctamente", Toast.LENGTH_LONG).show();
 
-                                            //Intent i2 = new Intent(Mostrar.this, MainActivity.class);
-                                            //startActivity(i2);
-                                            //finish();
+                                            Intent i2 = new Intent(Mostrar.this, Mostrar.class);
+                                            i2.putExtra("id", u.getId());
+                                            startActivity(i2);
+                                            finish();
 
                                         } else {
                                             Toast.makeText(Mostrar.this, "No se eliminó correctamente", Toast.LENGTH_LONG).show();
@@ -318,7 +320,7 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    private void obtenerDatos(String valorMensaje) {
+    public static void obtenerDatos(String valorMensaje) {
         String url = "https://grup1ser.herokuapp.com/";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
