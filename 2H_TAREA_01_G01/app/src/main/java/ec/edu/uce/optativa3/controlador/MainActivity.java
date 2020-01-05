@@ -28,7 +28,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    static String fecha1;
+    static String getUsuario;
     EditText user, pass;
     Button btnEntrar, btnRegistrar;
     daoUsuario dao;
@@ -67,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (u.equals("") && p.equals("")) {
                     Toast.makeText(this, "Error : Campos Vacios", Toast.LENGTH_LONG).show();
                 } else if (dao.login(u, p) == 1) {
+
+                    fecha1=fechaIn();
+
+                    getUsuario=u;
+
                     Usuario ux = dao.getUsuario(u, p);
                     Toast.makeText(this, "Datos Correctos" + "\n" + "Archivo de Preferencias Compartidas Creado", Toast.LENGTH_LONG).show();
                     Intent c = new Intent(MainActivity.this, Mostrar.class);
@@ -131,6 +142,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 requestPermissions(new String[]{requiredPermission}, 101);
             }
         }
+
+    }
+
+    public String fechaIn(){
+        Date objDate = new Date(); // Sistema actual La fecha y la hora se asignan a objDate
+
+        String strDateFormat = "hh: mm: ss a dd-MMM-yyyy"; // El formato de fecha está especificado
+        SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat); // La cadena de formato de fecha se pasa como un argumento al objeto
+        // System.out.println(objSDF.format(objDate)); // El formato de fecha se aplica a la fecha actual
+
+        String fechaHoraIn=objSDF.format(objDate);
+
+
+        return fechaHoraIn;
 
     }
 

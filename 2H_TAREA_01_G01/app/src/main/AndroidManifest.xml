@@ -23,13 +23,17 @@
         <activity android:name="ec.edu.uce.optativa3.controlador.Mostrar" />
         <activity android:name="ec.edu.uce.optativa3.controlador.Registrar" />
         <activity android:name="ec.edu.uce.optativa3.controlador.RegistroUsuario" />
+        <activity android:name="ec.edu.uce.optativa3.controlador.mostrarLog" />
         <activity android:name="ec.edu.uce.optativa3.controlador.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name="ec.edu.uce.optativa3.controlador.ServicioLog"
+            android:enabled="true"></service>
     </application>
 
 </manifest>

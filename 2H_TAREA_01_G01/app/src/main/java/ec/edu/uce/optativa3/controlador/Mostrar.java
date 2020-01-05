@@ -33,6 +33,7 @@ import com.example.login.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ec.edu.uce.optativa3.modelo.Estudiante;
+import ec.edu.uce.optativa3.modelo.Log;
 import ec.edu.uce.optativa3.modelo.Usuario;
 import ec.edu.uce.optativa3.modelo.daoEstudiante;
 
@@ -40,6 +41,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ec.edu.uce.optativa3.modelo.daoLog;
 import ec.edu.uce.optativa3.modelo.daoUsuario;
 import ec.edu.uce.optativa3.vistas.DataAdapter;
 
@@ -52,6 +54,9 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
     Button btnCerrarSesion, btnSalirApp;
     Button btnCrearPreferencias;
     Button btDescargar;
+    Button btnMostarLog;
+    ArrayList<Log> logLista;
+    daoLog daolog;
 
     TextView tv1;
 
@@ -78,6 +83,10 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mostrar);
+
+
+        btnMostarLog = (Button)findViewById(R.id.mostarLog) ;
+        btnMostarLog.setOnClickListener(this);
 
         btnCerrarSesion = (Button) findViewById(R.id.btCerrarSesion);
         btnCrearPreferencias = (Button) findViewById(R.id.btnPreferencias);
@@ -260,6 +269,15 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                 editor.clear();
                 editor.commit(); // commit changes
                 Toast.makeText(this, "Preferencias Compartidas Eliminado ", Toast.LENGTH_LONG).show();
+
+                Intent serviciolog=new Intent(Mostrar.this,ServicioLog.class);
+                startService(serviciolog);
+                try {
+                    mandarABaseDeDatos();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 finish();
                 break;
             case R.id.btnPreferencias:
@@ -279,6 +297,14 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                 Intent i = new Intent(Mostrar.this, Registrar.class);
                 i.putExtra("id", u.getId());
                 startActivity(i);
+                break;
+
+            case R.id.mostarLog:
+
+                Intent i3 = new Intent(Mostrar.this, mostrarLog.class);
+                startActivity(i3);
+
+
                 break;
         }
 
@@ -464,6 +490,60 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
             }
         });
         Volley.newRequestQueue(this).add(jsonArrayRequest);
+
+
+    }
+
+
+
+
+
+    public void mandarABaseDeDatos() throws JSONException {
+        String url = "https://restbase1.herokuapp.com/users";
+        String texto = "";
+        //texto = "//creamos las carpetas si no existen";
+        daoLog logdb = new daoLog(getApplicationContext(),null, null,1);
+        logLista = logdb.llenarLista();
+        String ultimoLista = "";
+
+        android.util.Log.e("Valor del ultimo",String.valueOf(logLista.size()-1));
+
+        if(logLista.size()-1 == -1){
+            Log l = new Log();
+            l.setFechaIn(null);
+            l.setFechaSal(null);
+            l.setModelo(null);
+            l.setNombre(null);
+            l.setUsuario(null);
+            l.setVersion(null);
+            logdb.Registrar(l);
+            logdb.Registrar(l);
+            //String ultimoLista = logLista.get(logLista.size()).toString();
+            //android.util.Log.e("Valor del JSON",String.valueOf(ultimoLista));
+
+        }else {
+            ultimoLista = logLista.get(logLista.size()-1).toJsonString();
+            android.util.Log.e("Valor del JSON", String.valueOf(ultimoLista));
+            JSONObject jsonArr = new JSONObject(String.valueOf(ultimoLista));
+            android.util.Log.e("Valor del JSON FINAL",String.valueOf(jsonArr));
+
+            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonArr, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    //TODO: handle success
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                    //TODO: handle failure
+                }
+            });
+
+            Volley.newRequestQueue(this).add(jsonRequest);
+        }
+
+
 
 
     }
