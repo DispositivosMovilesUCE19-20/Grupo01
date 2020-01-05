@@ -1,0 +1,97 @@
+FORMAT: NODE JS
+#Nombre y Descripcion del Servicio
+	restBase1
+	Guarda registros generados por los logs de ingreso y salida de un usuario, en una base de datos en la Nube
+
+#Ruta de Acceso al Servicio
+	https://restbase1.herokuapp.com/users	
+	#La misma ruta sirve para los metodos GET y POST
+
+#restBase1
+
+#src
+
+##INDEX
+
+###Maneja las fases iniciales de una peticion, formato JSON, URL Encoded y puerto del servidor
+	
+##ROUTES
+
+###INDEX
+
+####Direcciona las peticiones al servidor GET Y POST
+
+[
+            {
+                
+                    {
+                        "opcion": "route.get",
+                        "url direccioanda": "./src/controlers/index.controlers.js/getUsers"
+                    }, 
+		    {
+                        "opcion": "route.post",
+                        "url direccionada": "./src/controlers/index.controlers.js/createlogs"
+                    }
+            }
+]
+
+##CONTROLERS
+
+###INDEX.CONTROLERS
+
+####Realiza el tratamiento de las peticiones GET y POST
+
+[
+            {
+                
+                    {
+                        "Metodo": "Pool",
+                        "Descripcion": "Realiza la conexion a la base de datos, utilizando la configuracion",
+			"Parametros": "Metadata de configuracion de la base de datos"
+                    }, 
+		    {
+                        "Metodo": "getUsers",
+                        "Descripcion": "Toma la peticion GET y la trata como una consulta a la base de datos",
+			"Parametros": "(req, res), request y response",
+			"Respuesta": "Devuelve todos los registros guardados en la base de Datos"
+                    },
+		     {
+                        "Metodo": "createLogs",
+                        "Descripcion": "Toma la peticion POST, en un formato JS y la inserta en la base de datos",
+			"Parametros": "(req, res), request en formato JSON y response",
+			"Respuesta": "Devuelve el ultimo registro insertado en la base de datos"
+			"Estructura de la peticion":{"usuario":"___",
+						     "fechaentrada":"___",
+						     "fechasalida":"___",
+						     "nombre":"___",
+						     "modelo":"___",
+						     "tversion":"___"
+						    }
+                    }
+            }
+]
+
+#PROCFILE
+
+##Archivo necesario para el despliegue en ambiete web
+
+#PACKAGE.JSON
+
+##Archivo de configuracion general 
+{
+  "name": "restBase1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^7.15.1"
+  }
+}
