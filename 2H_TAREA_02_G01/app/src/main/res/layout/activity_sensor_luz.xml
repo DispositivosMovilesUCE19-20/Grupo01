@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ec.edu.uce.optativa3.controlador.SensorLuz">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="188dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="70dp"
+        android:text="Ilumine o Tape el sensor de luz de su dispositivo y mire como cambia el contraste y brillo de la pantalla"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/valorlum"
+        android:layout_width="268dp"
+        android:layout_height="136dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginRight="70dp"
+        android:textSize="24sp"
+        android:textColor="@android:color/holo_blue_dark"/>
+
+
+</RelativeLayout>
