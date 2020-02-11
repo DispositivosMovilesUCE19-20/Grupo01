@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,7 +30,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.login.R;
 
 import ec.edu.uce.optativa3.modelo.Estudiante;
-import ec.edu.uce.optativa3.modelo.Log;
 import ec.edu.uce.optativa3.modelo.Usuario;
 import ec.edu.uce.optativa3.modelo.daoEstudiante;
 
@@ -49,6 +51,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -356,6 +360,10 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                 e.setBecado(beca);
 
 
+
+
+
+
                 if (fotoPerfilUri != null) {
 
                     e.setFotoPerfilURL("Estudiante \n" + "");
@@ -377,6 +385,26 @@ public class Registrar extends AppCompatActivity implements View.OnClickListener
                     MandarfirebaseEstudiantes();
 
                     /////////////
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM", Locale.getDefault());
+                    Date date = new Date();
+
+
+                    String sSubCadena = fechaDeNacimientoTexto.substring(3,5);
+                    String fecha = dateFormat.format(date);
+                    Log.e("fech1",fecha);
+                    Log.e("fech2",sSubCadena);
+                    if(fecha.equals(sSubCadena)){
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "lemubitNotify")
+                                .setSmallIcon(R.drawable.ic_add_black_24dp)
+                                .setContentTitle("My notification")
+                                .setContentText("Hoy es tu cumpleanios")
+                                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+                                .setAutoCancel(true);
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                        notificationManager.notify(101, builder.build());
+
+                    }
 
                     Toast.makeText(this, "Registro Exitoso !!", Toast.LENGTH_LONG).show();
                     Intent i2 = new Intent(Registrar.this, Mostrar.class);
