@@ -209,7 +209,9 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
 
                                         if(daoEst.estadoBecado("" + arg0.getItemAtPosition(pos)).equals("Becado")){
 
-                                            Toast.makeText(Mostrar.this, "es becado", Toast.LENGTH_LONG).show();
+                                            System.out.println(("++++++++++++++++++IMPIMIR X" +daoEst.estadoBecado("" + arg0.getItemAtPosition(pos))));
+                                            //Toast.makeText(Mostrar.this, "es becado", Toast.LENGTH_LONG).show();
+                                            obtenerDatos2("msg8");
 
                                         }else{
                                             if (daoEst.eliminarUsuario("" + arg0.getItemAtPosition(pos))) {
