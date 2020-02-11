@@ -102,7 +102,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dangerousArea = new ArrayList<>();
         dangerousArea.add(new LatLng(-0.201839,-78.501118));//administracion
         dangerousArea.add(new LatLng(-0.26690770378460227,-78.55796694024626));//casa
-        dangerousArea.add(new LatLng(-0.198187,-78.503466));//fac de ingenieria
+        dangerousArea.add(new LatLng(-0.199722,-78.507138));//fac de ingenieria
     }
 
 
