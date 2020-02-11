@@ -137,4 +137,21 @@ public class daoEstudiante {
         return (sql.update("estudiante",cv, "id = " + u.getId(), null) > 0);
 
     }
+
+    public String estadoBecado (String user) {
+        lista = selectUsuarios();
+
+        String x="";
+
+        for (Estudiante us : lista) {
+
+            System.out.println("----IMPRIMIR ESTADO ESTUDIANTE: " + us.getBecado());
+
+            x = us.getBecado();
+
+        }
+
+
+        return x;
+    }
 }

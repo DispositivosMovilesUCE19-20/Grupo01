@@ -207,17 +207,23 @@ public class Mostrar extends AppCompatActivity implements View.OnClickListener {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        if (daoEst.eliminarUsuario("" + arg0.getItemAtPosition(pos))) {
-                                            //Toast.makeText(Mostrar.this, "Se eliminó correctamente", Toast.LENGTH_LONG).show();
-                                            obtenerDatos2("msg3");
-                                            Intent i2 = new Intent(Mostrar.this, Mostrar.class);
-                                            i2.putExtra("id", u.getId());
-                                            startActivity(i2);
-                                            finish();
+                                        if(daoEst.estadoBecado("" + arg0.getItemAtPosition(pos)).equals("Becado")){
 
-                                        } else {
-                                           // Toast.makeText(Mostrar.this, "No se eliminó correctamente", Toast.LENGTH_LONG).show();
-                                            obtenerDatos2("msg4");
+                                            Toast.makeText(Mostrar.this, "es becado", Toast.LENGTH_LONG).show();
+
+                                        }else{
+                                            if (daoEst.eliminarUsuario("" + arg0.getItemAtPosition(pos))) {
+                                                //Toast.makeText(Mostrar.this, "Se eliminó correctamente", Toast.LENGTH_LONG).show();
+                                                obtenerDatos2("msg3");
+                                                Intent i2 = new Intent(Mostrar.this, Mostrar.class);
+                                                i2.putExtra("id", u.getId());
+                                                startActivity(i2);
+                                                finish();
+
+                                            } else {
+                                                // Toast.makeText(Mostrar.this, "No se eliminó correctamente", Toast.LENGTH_LONG).show();
+                                                obtenerDatos2("msg4");
+                                            }
                                         }
 
                                     }
