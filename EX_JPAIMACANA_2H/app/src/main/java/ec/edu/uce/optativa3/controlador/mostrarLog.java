@@ -135,7 +135,7 @@ public class mostrarLog extends AppCompatActivity {
                         log.setVersion(version);
 
                         //lista3.add(log);
-                        tvprueba.setText(fechaIn);
+                        tvprueba.setText("ESTO ES UNA PRUEBA");
                         //adaptador2.notifyDataSetChanged();
                         //lvprueba.setAdapter(adaptador2);
                         daoLog DB = new daoLog(getApplicationContext(),null,null,1);
