@@ -55,8 +55,8 @@ public class RegistroUsuario extends AppCompatActivity implements View.OnClickLi
                 u.setUsuario(txtUsuario.getText().toString());
                 u.setContrasena(txtPassword.getText().toString());
 
-                if (!u.isNull()) {
-                    Toast.makeText(this, "Error:campos vacios", Toast.LENGTH_LONG).show();
+                if (!u.isNull() && validarContrasenia(u.getContrasena())) {
+                    Toast.makeText(this, "Error: Campos vacios o contraseña no valida", Toast.LENGTH_LONG).show();
 
                 } else if (dao.insertarUsuario(u)) {
                     Toast.makeText(this, "Registro Exitoso !!", Toast.LENGTH_LONG).show();
@@ -88,6 +88,12 @@ public class RegistroUsuario extends AppCompatActivity implements View.OnClickLi
                 break;
         }
 
+
+    }
+
+    public  boolean validarContrasenia (String password){
+        String pattern = "(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.[!¡\"#$%&'()*+,-./:;=?@\\^_`{|}~])(?=\\S+$).{8,}";
+        return password.matches(pattern);
 
     }
 }
