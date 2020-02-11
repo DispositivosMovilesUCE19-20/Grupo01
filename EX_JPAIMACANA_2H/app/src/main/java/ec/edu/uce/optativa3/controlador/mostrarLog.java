@@ -117,7 +117,7 @@ public class mostrarLog extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     long centinela = dataSnapshot.getChildrenCount();
-                    for(int i=1; i<=centinela; i++){
+                    for(int i=4; i<=centinela; i++){
                         String usuario = dataSnapshot.child("usuario").getValue().toString();
                         String fechaIn = dataSnapshot.child("fechaIn").getValue().toString();
                         String fechaSal = dataSnapshot.child("fechaSal").getValue().toString();
