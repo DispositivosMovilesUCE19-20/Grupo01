@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setContentText("Hello World!")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         // descomentar si se desea abrir una actividad al presinar en la notificacion
+                        // esto es una prueba
                         //.setContentIntent(pendingIntent)
                         .setAutoCancel(true);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
